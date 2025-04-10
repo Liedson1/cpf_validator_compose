@@ -1,0 +1,30 @@
+services:
+  server:
+    build: ./server
+    container_name: cpf_validator_server
+    networks:
+      - cpf_network
+    restart: unless-stopped
+  webapp:
+    build: ./web
+    container_name: cpf_validator_webapp
+    networks:
+      - cpf_network
+    ports:
+      - "5001:5001" 
+    depends_on:
+      - server 
+    restart: unless-stopped
+  client:
+    build: ./client
+    container_name: cpf_validator_client
+    networks:
+      - cpf_network
+    depends_on:
+      - server
+    stdin_open: true
+    tty: true
+
+networks:
+  cpf_network:
+    driver: bridge

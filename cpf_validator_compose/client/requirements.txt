@@ -1,0 +1,2 @@
+validate-docbr>=0.2
+requests>=2.25
