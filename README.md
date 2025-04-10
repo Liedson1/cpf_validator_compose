@@ -1,99 +1,84 @@
-# Validador de CPF com Docker Compose (Servidor API + WebApp + Cliente Terminal)
+# 🔐 Validador de CPF com Docker Compose
 
-Este projeto demonstra uma arquitetura simples cliente-servidor para validação de CPFs (Cadastro de Pessoas Físicas) brasileiros, totalmente orquestrada com Docker Compose. Ele inclui um servidor de API backend, uma interface web frontend e um cliente de terminal opcional.
+Uma solução simples, modular e containerizada para validar CPFs. Composta por três serviços — Server, WebApp e Cliente — este projeto demonstra uma arquitetura leve e prática baseada em Docker Compose.
 
-## Componentes
+## 📦 Componentes
 
-1. **Servidor (Backend API - `server`)**
-    - Tecnologia: Python com Flask
-    - Endpoint: POST `/validate`
-    - Validação com `validate-docbr`
-    - Retorno JSON: `{"cpf": "...", "is_valid": true/false}`
-    - Porta interna: 5000
+### ⚙️ Servidor (API - `server`)
+- Linguagem: Python
+- Framework: Flask
+- Função: expõe o endpoint `/validate` via POST
+- Validação com: `validate-docbr`
+- Resposta: `{"cpf": "...", "is_valid": true/false}`
+- Porta: interna 5000 (uso apenas dentro da rede Docker)
 
-2. **Aplicação Web (Frontend - `webapp`)**
-    - Tecnologia: Python com Flask
-    - Interface com formulário HTML (`templates/index.html`)
-    - Comunicação com servidor via `requests`
-    - Feedback visual usando Flash Messages
-    - Porta exposta: 5001 → `localhost:5001`
+### 🌐 Aplicação Web (`webapp`)
+- Framework: Flask
+- Interface amigável em HTML com CSS embutido
+- Envia o CPF digitado ao servidor via `requests`
+- Feedback visual com flash messages (válido, inválido, erro)
+- Porta: `5001`, acessível via navegador
 
-3. **Cliente (Terminal - `client`)**
-    - Script em Python
-    - Loop interativo de validação
-    - Comunicação via HTTP com o servidor
-    - Uso opcional para testes e interação rápida
+### 💻 Cliente Terminal (`client`)
+- Script Python interativo
+- Loop contínuo para digitar e validar CPFs via terminal
+- Ideal para testes manuais e validações rápidas
 
-## Pré-requisitos
+## ⚙️ Pré-requisitos
 
-- [Docker Engine](https://docs.docker.com/engine/install/)
-- [Docker Compose](https://docs.docker.com/compose/install/)
+- Docker instalado ([link](https://docs.docker.com/engine/install/))
+- Docker Compose ([link](https://docs.docker.com/compose/install/))
 
-## Estrutura do Projeto
+## 🗂 Estrutura de Diretórios
 
 ```
+📁 validador-cpf
 ├── client/
 │   ├── client.py
 │   ├── Dockerfile
 │   └── requirements.txt
-├── docker-compose.yml
 ├── server/
+│   ├── server.py
 │   ├── Dockerfile
-│   ├── requirements.txt
-│   └── server.py
+│   └── requirements.txt
 ├── web/
 │   ├── app.py
 │   ├── Dockerfile
 │   ├── requirements.txt
 │   └── templates/
 │       └── index.html
+├── docker-compose.yml
 └── README.md
 ```
 
-## Como Rodar a Aplicação (Interface Web)
-
-1. Clone ou baixe este repositório
-2. No terminal, acesse a raiz do projeto
-3. Execute o comando:
+## 🚀 Executando a Aplicação (modo Web)
 
 ```bash
+git clone https://github.com/seu-usuario/validador-cpf.git
+cd validador-cpf
 docker compose up --build
 ```
 
-4. Acesse `http://localhost:5001` no navegador
-5. Digite um CPF e clique em "Validar CPF" para verificar
+Acesse [http://localhost:5001](http://localhost:5001) no navegador e digite um CPF. O resultado será exibido na tela.
 
-## Como Parar a Aplicação
-
-```bash
-docker compose down
-```
-
-ou pressione `Ctrl + C`
-
-## Como Usar o Cliente de Terminal (Opcional)
-
-1. Inicie o servidor
+## 🧪 Usando o Cliente Terminal (modo CLI)
 
 ```bash
 docker compose up server
-```
-
-2. Em outro terminal, execute o cliente
-
-```bash
+# em outro terminal:
 docker compose up client
 ```
 
-3. Digite um CPF quando solicitado
-
+Depois:
 ```
 Digite o CPF para validação (ou 'sair' para terminar):
 ```
 
-Digite quantos quiser, ou `sair` para encerrar
+## 🛑 Parando os Containers
 
-## Licença
+```bash
+docker compose down
+# ou pressione Ctrl + C
+```
 
-MIT
 
