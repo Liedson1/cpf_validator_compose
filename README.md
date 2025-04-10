@@ -55,7 +55,7 @@ Uma solução simples, modular e containerizada para validar CPFs. Composta por 
 
 ```bash
 git clone https://github.com/seu-usuario/validador-cpf.git
-cd validador-cpf
+cd cpf_validator_compose
 docker compose up --build
 ```
 
